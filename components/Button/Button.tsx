@@ -1,12 +1,15 @@
 import { css, SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
+import { MouseEvent } from "react";
 // css
+// Mouse
 
 export type Color = "primary" | "secondary" | "danger" | "warning";
 
 export type Props = {
     children: string;
     color?: Color;
+    onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const getColors = (color?: Color): SerializedStyles => {
