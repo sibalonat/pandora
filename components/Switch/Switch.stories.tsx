@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
 import { Switch } from "./Index";
 
 export default {
-    title: "Content/Tile",
+    title: "Content/Switch",
     component: Switch
 } as ComponentMeta<typeof Switch>
 

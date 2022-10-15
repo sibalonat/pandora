@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
 import { Checkbox } from "./index";
 
 export default {
-    title: "Content/Tile",
+    title: "Content/Checkbox",
     component: Checkbox
 } as ComponentMeta<typeof Checkbox>
 

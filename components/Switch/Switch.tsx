@@ -17,6 +17,7 @@ const Wrapper = styled.label`
         }
     }
 `
+// ${transition()};
 const VisiblePart = styled.label`
     display: flex;
     flex-direction: row;
@@ -28,7 +29,6 @@ const VisiblePart = styled.label`
     border-radius: 1.6rem;
     background: ${({ theme }) => theme.components.background};
     ${({ theme }) => boxShadow(theme.components.shadow1, theme.components.shadow2, false)};
-    ${transition()};
     &::after {
         content: "";
         margin-left: 0.5rem;
@@ -36,6 +36,7 @@ const VisiblePart = styled.label`
         height: 2.1rem;
         border-radius: 50%;
         background: ${({ theme }) => theme.components.nonActive};
+        ${transition()};
     }
 
 `
