@@ -30,7 +30,7 @@ const VisiblePart = styled.label`
     &:hover {
         ${({theme}) => boxShadow(theme.components.shadow1, theme.components.shadow2, true)}
     }
-    ${({theme}) => boxShadow(theme.components.shadow1, theme.components.shadow2, '')};
+    ${({theme}) => boxShadow(theme.components.shadow1, theme.components.shadow2, false)};
 `
 
 type Props = {

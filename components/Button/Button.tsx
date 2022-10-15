@@ -49,7 +49,7 @@ export const Button = styled.button<Props>`
     transition: all .4s ease;
     ${({theme, color}) => getColors(theme, color)}
     ${transition()}
-    ${({ theme }) => boxShadow(theme.components.shadow1, theme.components.shadow2, '')};
+    ${({ theme }) => boxShadow(theme.components.shadow1, theme.components.shadow2, false)};
     &:hover { 
         opacity: .4;
     }
