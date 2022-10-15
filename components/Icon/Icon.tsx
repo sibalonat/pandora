@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import { Icons } from "./Icons";
@@ -7,23 +8,32 @@ import { Icons } from "./Icons";
 export type AvailableIcons = keyof typeof Icons;
 
 type WrapperProps = {
-    size: string
+    size?: number
 }
+// size: string;
 
 export type Props = {
     name: AvailableIcons;
-    size: string;
-} & WrapperProps & React.SVGProps<SVGAElement>;
+} & WrapperProps & React.SVGProps<SVGSVGElement>;
+{/* <SVGAElement></SVGAElement> */}
 
 const Wrapper = styled.div<WrapperProps>`
     color: ${({theme}) => theme.fonts.regular };
-    width: ${({size}) => size };
-    height: ${({size}) => size };
+    ${({size}) => {
+        const sizeRem = `${size}rem`;
+        return css`
+            width: ${sizeRem};
+            height: ${sizeRem};
+        `
+    }}
 `
 
-export const Icon: FC<Props> = ({name, size = "2rem", ...rest}) => {
+export const Icon: FC<Props> = ({name, size = 2, ...rest}) => {
     const Icon = Icons[name];
-    const sizes = {width: size, height: size};
+    const sizeRem = `${size}rem`
+    const sizes = {width: sizeRem, height: sizeRem};
+    console.log(name);
+    console.log(rest);
 
     return (
         <Wrapper size={size}>
