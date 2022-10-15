@@ -35,9 +35,9 @@ const light:AppTheme = {
         warning: "#ffca2ce6",
     },
     fonts: {
-        regular: "#5e5c64e6",
+        regular: "#504e55",
         button: "#e4ebf5e6",
-        warning: "#5e5c64e6",
+        warning: "#504e55",
         valid: "#198754e6",
         invalid: "#dc3545e6",
     },
