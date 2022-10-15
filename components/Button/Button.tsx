@@ -52,7 +52,7 @@ export const Button = styled.button<Props>`
     border-radius: 1rem;
     transition: all .4s ease;
     ${({color}) => getColors(color)}
-    box-shadow: 1vmin 1vmin 1vmin #c8d0e7, -1vmin -1vmin 1vmin #ffffff;
+    ${({ theme }) => `box-shadow: 1vmin 1vmin 1vmin ${theme.components.shadow1}, -1vmin -1vmin 1vmin ${theme.components.shadow1}`}
     &:hover { 
         opacity: .4;
     }
