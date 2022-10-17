@@ -33,12 +33,37 @@ const Wrapper = styled.div`
             justify-content: space-between;
         }
     }
+    @media(min-width: 700px) {
+        grid-template-columns: 1fr 4fr 3fr;
+        grid-template-areas: 
+        "header search nav"
+        "nav nav"
+        "content content content"
+        "footer footer footer";
+        nav {
+            flex-direction: row;
+        }
+    }
 
 `
 const StyledLogo = styled(Logo)`
     grid-area: header;
-
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    @media(max-width: 500px) {
+        justify-content: center;
+    }
 `
+
+const LogoLink = styled.a`
+    all: unset;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.9;
+    }
+`
+
 const MainNav = styled.nav`
     grid-area: nav;
     display: flex;
@@ -47,7 +72,7 @@ const MainNav = styled.nav`
     padding: 0.5rem;
     a {
         cursor: pointer;
-        color: ${({theme}) => theme.fonts.regular };
+        color: ${({ theme }) => theme.fonts.regular};
         &:hover {
             opacity: 0.7;
         }
@@ -56,6 +81,8 @@ const MainNav = styled.nav`
 
 const SearchInput = styled(Input)`
     grid-area: search;
+    width: 100%;
+    height: 4rem;
 `
 
 const Content = styled.main`
@@ -64,22 +91,29 @@ const Content = styled.main`
 
 const Footer = styled.footer`
     grid-area: footer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 5rem;
 `
 
-export const Layout: FC = ({ children }) => {
-    return (
-        <Wrapper>
-            <StyledLogo size={3}>mn+</StyledLogo>
-            <MainNav>
-                <Link href="/all">All</Link>
-                <Link href="/news">News</Link>
-                <IconButton name="Moon" size={1} onClick={() => null} />
-            </MainNav>
-            <SearchInput icon="Search" placeholder="search" onChange={() => null} />
-            <Content> {children} </Content>
-            <Footer>
-                {new Date().getFullYear()} all right for all
-            </Footer>
-        </Wrapper>
-    );
-}
+export const Layout: FC = ({ children }) => (
+    <Wrapper>
+        <Link href="/" passHref>
+            <LogoLink>
+                <StyledLogo size={3}>mn+</StyledLogo>
+            </LogoLink>
+        </Link>
+        <MainNav>
+            <Link href="/all">All</Link>
+            <Link href="/news">News</Link>
+            <IconButton name="Moon" size={1} onClick={() => null} />
+        </MainNav>
+        <SearchInput icon="Search" placeholder="search" onChange={() => null} />
+        <Content> {children} </Content>
+        <Footer>
+            {new Date().getFullYear()} all right for all
+        </Footer>
+    </Wrapper>
+);
