@@ -46,7 +46,7 @@ export const Icon: FC<Props> = ({name, size = 2, ...rest}) => {
 
     return (
         // <Wrapper size={size}>
-            <Icon {...sizes}{...rest}/>
+            <Icon role="img" aria-label={name} {...sizes}{...rest}/>
         // </Wrapper>
     );
 }
