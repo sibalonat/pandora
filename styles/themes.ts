@@ -18,6 +18,7 @@ const dark = {
         regular: "#e4ebf5e6",
         button: "#e4ebf5e6",
         warning: "#5e5c64e6",
+        placeholder: "#bec8e4",
         logo: "#ff9933",
         logoShadow1: "#fed028",
         logoShadow2: "#e93020",
@@ -25,7 +26,7 @@ const dark = {
         invalid: "#ff9ea6e6",
     },
 }
-const light:AppTheme = {
+const light: AppTheme = {
     name: "light",
     background: "#e4ebf5",
     components: {
@@ -43,6 +44,7 @@ const light:AppTheme = {
         regular: "#504e55",
         button: "#e4ebf5e6",
         warning: "#504e55",
+        placeholder: "#504e55e6",
         logo: "#ffffff",
         logoShadow1: "#000000",
         logoShadow2: "#6d5dfc",
