@@ -15,10 +15,12 @@ import { Icon, AvailableIcons } from "@/components/Icon/Icon";
 // }
 
 // const StyledInput = styled.input<StyledIconProp>`
+// width: ${({ width }) => width}rem;
+// height: ${({ height }) => height}rem;
 const StyledInput = styled.input`
     all: unset;
-    width: ${({ width }) => width}rem;
-    height: ${({ height }) => height}rem;
+    width: 100%;
+    height: 100%;
     border-radius: 1rem;
     font-size: 1.4rem;
     padding: 0 2.6rem 0 1.4rem;
@@ -37,10 +39,17 @@ const StyledInput = styled.input`
 
 `
 
-const Label = styled.label`
+type LabelProps = {
+    height?: number;
+    width?: number;
+}
+
+const Label = styled.label<LabelProps>`
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+    width: ${({ width }) => width}rem;
+    height: ${({ height }) => height}rem;
     color: ${({ theme }) => theme.fonts.regular};
     font-size: 1rem;
     `
@@ -49,8 +58,10 @@ const Text = styled.span`
     padding-left: 1.4rem;    
 `
 
+// margin-left: -2.5rem;
 const StyledIcon = styled(Icon)`
-    margin-left: -2.5rem;
+    position: absolute;
+    right: 0.5rem;
     color: ${({ theme }) => theme.fonts.placeholder};
     opacity: 0.7;
 `
@@ -63,6 +74,9 @@ const StyledIcon = styled(Icon)`
 // `
 const InputWrapper = styled.div`
     display: flex;
+    width: 100%;
+    position: relative;
+    height: 100%;
     align-items: center;
 `
 
@@ -72,23 +86,22 @@ export type Props = {
     onChange: ChangeEventHandler<HTMLInputElement>;
     feedback?: ReactChild;
     icon?: AvailableIcons;
-    width?: number;
-    height?: number;
-}
+} & LabelProps;
 
 export const Input: FC<Props & InputHTMLAttributes<HTMLInputElement>> = ({
     label,
-    height = 4,
+    height = 7,
     width = 20,
     icon,
+    className,
     feedback,
     ...props
 }) => {
     // const fieldId = useId()
-    console.log(width);
+    // console.log(width);
 
     return (
-        <Label>
+        <Label height={height} width={width} className={className} >
             {label && <Text>{label}</Text>}
 
             {/* <br /> */}
