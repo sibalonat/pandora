@@ -4,6 +4,7 @@ import { Input } from "@/components/Input/Input";
 import { FC } from "react";
 import Link from "next/link";
 import { IconButton } from "@/components/IconButton/IconButton";
+import { StyledLink } from "@/components/StyledLink/StyledLink";
 
 // styled
 // Link
@@ -56,13 +57,7 @@ const StyledLogo = styled(Logo)`
     }
 `
 
-const LogoLink = styled.a`
-    all: unset;
-    cursor: pointer;
-    &:hover {
-        opacity: 0.9;
-    }
-`
+
 
 const MainNav = styled.nav`
     grid-area: nav;
@@ -106,9 +101,9 @@ type Props = {
 export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
     <Wrapper>
         <Link href="/" passHref>
-            <LogoLink>
+            <StyledLink>
                 <StyledLogo size={3}>mn+</StyledLogo>
-            </LogoLink>
+            </StyledLink>
         </Link>
         <MainNav>
             <Link href="/all">All</Link>

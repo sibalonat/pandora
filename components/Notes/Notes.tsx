@@ -2,8 +2,11 @@ import styled from "@emotion/styled";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import { FC } from "react";
+import { StyledLink } from "@/components/StyledLink/StyledLink";
 import { borderRadius, boxShadow } from "../styles";
 
+
+// StyledLink
 // Link
 // styled
 // Image
@@ -24,13 +27,8 @@ const Section = styled.section`
     `
 
 // padding: 1vmin 4vmin 4 vmin;
-const NoteLink = styled.a`
-    all: unset;
-    cursor: pointer;
+const NoteLink = styled(StyledLink)`
     padding: 1vmin 4vmin;
-    &:hover {
-        opacity: 0.9;
-    }
 `
 
 export type Props = {
