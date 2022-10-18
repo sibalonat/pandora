@@ -9,6 +9,12 @@ import { StyledLink } from "@/components/StyledLink/StyledLink";
 // styled
 // Link
 // IconButton
+// "header"
+// "nav"
+// "search"
+// "content"
+// "sidebar"
+// "footer";
 const Wrapper = styled.div`
     display: grid;
     gap: 0.1rem;
@@ -16,34 +22,20 @@ const Wrapper = styled.div`
     background-color: ${({ theme }) => theme.background};
     padding: 0.5rem;
     grid-template-areas: 
-    "header"
-    "nav"
-    "search"
-    "content"
-    "sidebar"
-    "footer";
+    "header  nav"
+    "search search"
+    "content content"
+    "footer footer";
     @media(min-width: 500px) {
         grid-template-columns: 1fr 3fr;
-        grid-template-areas: 
-        "header search"
-        "nav nav"
-        "content content"
-        "footer footer";
-        nav {
-            flex-direction: row;
-            justify-content: space-between;
-        }
+
     }
-    @media(min-width: 700px) {
-        grid-template-columns: 1fr 4fr 3fr;
+    @media(min-width: 960px) {
+        grid-template-columns: 1fr 4fr 2fr;
         grid-template-areas: 
         "header search nav"
-        "nav nav"
         "content content content"
         "footer footer footer";
-        nav {
-            flex-direction: row;
-        }
     }
 
 `
@@ -51,20 +43,37 @@ const StyledLogo = styled(Logo)`
     grid-area: header;
     display: flex;
     align-items: center;
+    justify-content: start;
     height: 4rem;
-    @media(max-width: 500px) {
-        justify-content: center;
+    & .logo_full {
+        display: none;
     }
+    @media(min-width: 560px) {
+        & .logo_short {
+            display: none;
+        }
+        & .logo_full {
+            display: inline;
+        }
+    }
+    `
+    // @media(max-width: 500px) {
+    //     justify-content: center;
+    // }
+
+const LogoLink = styled(StyledLink)`
+    padding-right: 1vw; 
 `
 
 
 
+    // padding: 0.5rem;
 const MainNav = styled.nav`
     grid-area: nav;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0.5rem;
+    margin: 0 2vmin;
     a {
         cursor: pointer;
         color: ${({ theme }) => theme.fonts.regular};
@@ -101,9 +110,12 @@ type Props = {
 export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
     <Wrapper>
         <Link href="/" passHref>
-            <StyledLink>
-                <StyledLogo size={3}>mn+</StyledLogo>
-            </StyledLink>
+            <LogoLink>
+                <StyledLogo size={3}>
+                    <span className="log_short">mn+</span>
+                    <span className="log_full">mnplus</span>
+                </StyledLogo>
+            </LogoLink>
         </Link>
         <MainNav>
             <Link href="/all">All</Link>
