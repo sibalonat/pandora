@@ -98,7 +98,12 @@ const Footer = styled.footer`
     height: 5rem;
 `
 
-export const Layout: FC = ({ children }) => (
+type Props = {
+    isDark: boolean;
+    onThemeToggler: () => void;
+}
+
+export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
     <Wrapper>
         <Link href="/" passHref>
             <LogoLink>
@@ -108,7 +113,7 @@ export const Layout: FC = ({ children }) => (
         <MainNav>
             <Link href="/all">All</Link>
             <Link href="/news">News</Link>
-            <IconButton name="Moon" size={1} onClick={() => null} />
+            <IconButton name={isDark ? "Moon" : "Sun"} size={1} onClick={onThemeToggler} />
         </MainNav>
         <SearchInput icon="Search" placeholder="search" onChange={() => null} />
         <Content> {children} </Content>
