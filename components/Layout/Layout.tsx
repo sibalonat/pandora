@@ -37,8 +37,12 @@ const Wrapper = styled.div`
         "content content content"
         "footer footer footer";
     }
-
 `
+
+const LogoLink = styled(StyledLink)`
+    padding-right: 1vw; 
+`
+
 const StyledLogo = styled(Logo)`
     grid-area: header;
     display: flex;
@@ -61,9 +65,7 @@ const StyledLogo = styled(Logo)`
     //     justify-content: center;
     // }
 
-const LogoLink = styled(StyledLink)`
-    padding-right: 1vw; 
-`
+
 
 
 
@@ -112,8 +114,8 @@ export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
         <Link href="/" passHref>
             <LogoLink>
                 <StyledLogo size={3}>
-                    <span className="log_short">mn+</span>
-                    <span className="log_full">mnplus</span>
+                    <span className="logo_short">mn+</span>
+                    <span className="logo_full">mnplus</span>
                 </StyledLogo>
             </LogoLink>
         </Link>
