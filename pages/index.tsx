@@ -46,8 +46,7 @@ const Home: NextPage = () => {
              </ul>
            </>
          </Note>
-        ))
-        }
+        ))}
       </NoteWrapper>
     </>
   )
