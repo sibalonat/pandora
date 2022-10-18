@@ -23,27 +23,31 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NoteWrapper>
-        {Array(4).fill(
-          <Note
-            header='marini po degjon balthazar'
-            link='/balthazar'
-            imageProps={{
-              width: 1368,
-              height: 770,
-              alt: "random foto",
-              src: "https://picsum.photos/seed/picsum/1368/770"
-            }}
-          >
-            <>
-              React is a weird library for javascript when people get overexited for something it can have more sense.
-              <ul>
-                <li>first what is react</li>
-                <li>reason to switch to vue</li>
-                <li>things that meaby will make you switch that sometimes i fell </li>
-              </ul>
-            </>
-          </Note>
-        )}
+        {Array(4)
+        .fill("")
+        .map(() => (
+           <Note
+           key={Math.random()}
+           header='marini po degjon balthazar'
+           link='/balthazar'
+           imageProps={{
+             width: 1368,
+             height: 770,
+             alt: "random foto",
+             src: "https://picsum.photos/seed/picsum/1368/770"
+           }}
+         >
+           <>
+             React is a weird library for javascript when people get overexited for something it can have more sense.
+             <ul>
+               <li>first what is react</li>
+               <li>reason to switch to vue</li>
+               <li>things that meaby will make you switch that sometimes i fell </li>
+             </ul>
+           </>
+         </Note>
+        ))
+        }
       </NoteWrapper>
     </>
   )

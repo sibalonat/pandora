@@ -7,6 +7,6 @@ export const StyledLink = styled.a`
     padding: 1vmin 4vmin;
     color: ${({theme}) => theme.fonts.regular};
     &:hover {
-        opacity: 0.9;
+        opacity: 0.7;
     }
 `

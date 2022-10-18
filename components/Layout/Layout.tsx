@@ -61,28 +61,22 @@ const StyledLogo = styled(Logo)`
         }
     }
     `
-    // @media(max-width: 500px) {
-    //     justify-content: center;
-    // }
+// @media(max-width: 500px) {
+//     justify-content: center;
+// }
 
 
 
 
 
-    // padding: 0.5rem;
+// padding: 0.5rem;
 const MainNav = styled.nav`
     grid-area: nav;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 0 2vmin;
-    a {
-        cursor: pointer;
-        color: ${({ theme }) => theme.fonts.regular};
-        &:hover {
-            opacity: 0.7;
-        }
-    }
+
 `
 
 const SearchInput = styled(Input)`
@@ -120,8 +114,16 @@ export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
             </LogoLink>
         </Link>
         <MainNav>
-            <Link href="/all">All</Link>
-            <Link href="/news">News</Link>
+            <Link href="/all" passHref>
+                <StyledLink>
+                    All
+                </StyledLink>
+            </Link>
+            <Link href="/news" passHref>
+                <StyledLink>
+                    News
+                </StyledLink>
+            </Link>
             <IconButton name={isDark ? "Moon" : "Sun"} size={1} onClick={onThemeToggler} />
         </MainNav>
         <SearchInput icon="Search" placeholder="search" onChange={() => null} />
