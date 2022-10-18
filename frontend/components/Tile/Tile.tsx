@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { FC } from "react";
+import { FC, ReactChild } from "react";
 import { boxShadow, borderRadius, transition } from "@/components/styles";
-type Props = {
-    header: string,
-    children: string
+export type Props = {
+    header: ReactChild,
+    // children: string
 }
 // styled
 const Section = styled.section`

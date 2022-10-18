@@ -83,10 +83,13 @@ const InputWrapper = styled.div`
 export type Props = {
     label?: string;
     placeholder: string;
-    onChange: ChangeEventHandler<HTMLInputElement>;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
     feedback?: ReactChild;
     icon?: AvailableIcons;
 } & LabelProps;
+
+
+
 
 export const Input: FC<Props & InputHTMLAttributes<HTMLInputElement>> = ({
     label,
@@ -102,7 +105,8 @@ export const Input: FC<Props & InputHTMLAttributes<HTMLInputElement>> = ({
 
     return (
         <Label height={height} width={width} className={className} >
-            {label && <Text>{label}</Text>}
+            {/* {label && <Text>{label}</Text>} */}
+            <Text>{label}</Text>
 
             {/* <br /> */}
             {/* <StyledInput withIcon={Boolean(icon)} id={fieldId} {...props} /> */}
@@ -118,7 +122,8 @@ export const Input: FC<Props & InputHTMLAttributes<HTMLInputElement>> = ({
             {/* <br /> */}
             {/* <Label htmlFor={fieldId}>{feedback}</Label> */}
             {/* feedback */}
-            {feedback && <Text>{feedback}</Text>}
+            {/* {feedback && <Text>{feedback}</Text>} */}
+            <Text>{feedback}</Text>
             {/* <Label>
                 {feedback}
             </Label> */}

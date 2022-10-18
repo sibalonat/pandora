@@ -14,3 +14,11 @@ export const BasicTile: ComponentStoryObj<typeof Tile> = {
         children: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt? Possimus maxime ut natus cumque necessitatibus fuga esse nam sit. Reiciendis beatae debitis pariatur maiores inventore optio, nemo provident? Culpa.`
     }
 }
+
+export const BasicTileWithSmallAmountOfContent: ComponentStoryObj<typeof Tile> = {
+    ...BasicTile,
+    args: {
+        header: "Lorem ipsum dolor",
+        children: "sit amet consectetur adipisicing elit. Voluptas, in culpa? Cupiditate vel quisquam asperiores sit ea vitae possimus reprehenderit nesciunt enim magnam, perspiciatis facilis culpa optio exercitationem inventore atque."
+    }
+}
