@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from "./index";
+import Home from "@/pages/index";
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
