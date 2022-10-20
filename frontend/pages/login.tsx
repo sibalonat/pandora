@@ -4,7 +4,7 @@ import { Button } from "@/components/Button/Button";
 import { Input, Feedback } from "@/components/Input/Input";
 import { StyledLink } from "@/components/StyledLink/StyledLink";
 import { CenteredTile } from "@/components/Tile/CenteredTile";
-import { Tile } from "@/components/Tile/Tile";
+// import { Tile } from "@/components/Tile/Tile";
 import styled from "@emotion/styled";
 import type { NextPage } from "next";
 import Link from "next/link";
