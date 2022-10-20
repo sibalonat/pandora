@@ -64,7 +64,5 @@ export const Login: NextPage = () => {
                 </Link>
             </h3>
         </CenteredTile>
-
-
     </form>
 }

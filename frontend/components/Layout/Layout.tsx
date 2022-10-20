@@ -1,10 +1,19 @@
 import styled from "@emotion/styled";
-import { Logo } from "@/components/Logo/Logo";
-import { Input } from "@/components/Input/Input";
+
 import { FC } from "react";
 import Link from "next/link";
 import { IconButton } from "@/components/IconButton/IconButton";
 import { StyledLink } from "@/components/StyledLink/StyledLink";
+import { 
+    Wrapper,
+    StyledLogo,
+    LogoLink,
+    MainNav,
+    SearchInput,
+    Content,
+    Footer,
+
+} from "./components";
 
 // styled
 // Link
@@ -15,88 +24,17 @@ import { StyledLink } from "@/components/StyledLink/StyledLink";
 // "content"
 // "sidebar"
 // "footer";
-const Wrapper = styled.div`
-    display: grid;
-    gap: 0.1rem;
-    color: ${({ theme }) => theme.fonts.regular};
-    background-color: ${({ theme }) => theme.background};
-    padding: 0.5rem;
-    grid-template-areas: 
-    "header  nav"
-    "search search"
-    "content content"
-    "footer footer";
-    @media(min-width: 500px) {
-        grid-template-columns: 1fr 3fr;
+// Wrapper
+// Logo
 
-    }
-    @media(min-width: 960px) {
-        grid-template-columns: 1fr 4fr 2fr;
-        grid-template-areas: 
-        "header search nav"
-        "content content content"
-        "footer footer footer";
-    }
-`
 
-const LogoLink = styled(StyledLink)`
-    padding-right: 1vw; 
-`
 
-const StyledLogo = styled(Logo)`
-    grid-area: header;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    height: 4rem;
-    & .logo_full {
-        display: none;
-    }
-    @media(min-width: 560px) {
-        & .logo_short {
-            display: none;
-        }
-        & .logo_full {
-            display: inline;
-        }
-    }
-    `
+
+
 // @media(max-width: 500px) {
 //     justify-content: center;
 // }
 
-
-
-
-
-// padding: 0.5rem;
-const MainNav = styled.nav`
-    grid-area: nav;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0 2vmin;
-
-`
-
-const SearchInput = styled(Input)`
-    grid-area: search;
-    width: 100%;
-    height: 4rem;
-`
-
-const Content = styled.main`
-    grid-area: content;
-`
-
-const Footer = styled.footer`
-    grid-area: footer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    height: 5rem;
-`
 
 type Props = {
     isDark: boolean;
@@ -119,10 +57,11 @@ export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
                     All
                 </StyledLink>
             </Link>
-            <Link href="/news" passHref>
-                <StyledLink>
+            <Link href="/login" passHref>
+                {/* <StyledLink>
                     News
-                </StyledLink>
+                </StyledLink> */}
+                <IconButton name="Login" size={1} />
             </Link>
             <IconButton name={isDark ? "Moon" : "Sun"} size={1} onClick={onThemeToggler} />
         </MainNav>
