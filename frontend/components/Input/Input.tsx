@@ -1,5 +1,12 @@
 import styled from "@emotion/styled";
-import { ChangeEventHandler, FC, InputHTMLAttributes, ReactChild } from "react";
+import {
+    ChangeEventHandler,
+    FC,
+    InputHTMLAttributes,
+    ForwardedRef,
+    forwardRef,
+    ReactChild
+} from "react";
 // import { useId } from "@/components/hooks/useId";
 import { boxShadow } from "../styles";
 import { Icon, AvailableIcons } from "@/components/Icon/Icon";
@@ -9,6 +16,7 @@ import { Icon, AvailableIcons } from "@/components/Icon/Icon";
 
 // useId
 // styled
+// Forwarwarded
 
 // type StyledIconProp = {
 //     withIcon: boolean;
@@ -43,7 +51,7 @@ type WrapperProps = {
     height?: number;
     width?: number;
     isLabelVisible?: boolean;
-    isFeedbackVisible?: boolean; 
+    isFeedbackVisible?: boolean;
 }
 // justify-content: flex-start;
 // flex-direction: column;
@@ -64,12 +72,12 @@ const Wrapper = styled.label<WrapperProps>`
     "label"
     "input"
     "feedback";
-    grid-template-rows: ${({isLabelVisible, isFeedbackVisible}) => {
+    grid-template-rows: ${({ isLabelVisible, isFeedbackVisible }) => {
         if (isLabelVisible && isFeedbackVisible) {
-            return "1fr 3fr 1fr";            
-        } else if(isLabelVisible) {
+            return "1fr 3fr 1fr";
+        } else if (isLabelVisible) {
             return "1fr 4fr 0fr";
-        } else if(isFeedbackVisible) {
+        } else if (isFeedbackVisible) {
             return "0fr 4fr 1fr";
         } else {
             return "0fr 1fr 0fr";
@@ -120,47 +128,45 @@ export type Props = {
 
 
 
-export const Input: FC<Props & InputHTMLAttributes<HTMLInputElement>> = ({
-    label,
-    height = 7,
-    width = 20,
-    icon,
-    className,
-    feedback,
-    ...rest
-}) => {
-    // const fieldId = useId()
-    // console.log(width);
-
-    return (
-        <Wrapper 
+export const Input: FC<Props & InputHTMLAttributes<HTMLInputElement>> = forwardRef((
+    {
+        label,
+        height = 7,
+        width = 20,
+        icon,
+        className,
+        feedback,
+        ...rest
+    }, ref
+) => (
+    <Wrapper
         labelVisible={Boolean(label)}
         feedbackVisible={Boolean(label)}
-        height={height} 
-        width={width} 
+        height={height}
+        width={width}
         className={className} >
-            {/* {label && <Text>{label}</Text>} */}
-            <Label>{label}</Label>
+        {/* {label && <Text>{label}</Text>} */}
+        <Label>{label}</Label>
 
-            {/* <br /> */}
-            {/* <StyledInput withIcon={Boolean(icon)} id={fieldId} {...props} /> */}
-            {/* withIcon={Boolean(icon)} {...props} */}
-            <InputWrapper>
-                <StyledInput
-                    {...rest}
-                    width={width}
-                    height={height}
-                />
-                {icon && <StyledIcon name={icon} />}
-            </InputWrapper>
-            {/* <br /> */}
-            {/* <Label htmlFor={fieldId}>{feedback}</Label> */}
-            {/* feedback */}
-            {/* {feedback && <Text>{feedback}</Text>} */}
-            <Feedback>{feedback}</Feedback>
-            {/* <Label>
-                {feedback}
-            </Label> */}
-        </Wrapper>
-    )
-}
+        {/* <br /> */}
+        {/* <StyledInput withIcon={Boolean(icon)} id={fieldId} {...props} /> */}
+        {/* withIcon={Boolean(icon)} {...props} */}
+        <InputWrapper>
+            <StyledInput
+                {...rest}
+                ref={ref as ForwardedRef<HTMLInputElement>}
+                width={width}
+                height={height}
+            />
+            {icon && <StyledIcon name={icon} />}
+        </InputWrapper>
+        {/* <br /> */}
+        {/* <Label htmlFor={fieldId}>{feedback}</Label> */}
+        {/* feedback */}
+        {/* {feedback && <Text>{feedback}</Text>} */}
+        <Feedback role="alert">{feedback}</Feedback>
+        {/* <Label>
+            {feedback}
+        </Label> */}
+    </Wrapper>
+))

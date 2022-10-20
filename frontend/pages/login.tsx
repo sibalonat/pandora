@@ -41,19 +41,21 @@ export const Login: NextPage = () => {
             label="Identifier" 
             placeholder="username or email"
             height={7}
-            feedback={errors.identifier ? <Feedback>Min length 6</Feedback> : <>&nbsp;</>}
+            feedback={errors.identifier ? <Feedback>{errors.identifier?.message}</Feedback> : <>&nbsp;</>}
             {...register("identifier", {
-                required: true,
-                minLength: 6
+                required: "Required Field",
+                minLength: {value: 6, message: "To Short"}
             })} />
             <StyledInput 
             height={7}
             label="Password" 
-            feedback={errors.password ? <Feedback>Min length 6</Feedback> : <>&nbsp;</>}
+            type="password"
+            role="textbox"
+            feedback={errors.password ? <Feedback>{errors.password?.message}</Feedback> : <>&nbsp;</>}
             placeholder="password"
             {...register("password", {
-                required: true,
-                minLength: 6
+                required: "Required Field",
+                minLength: {value: 8, message: "To Short"}
             })}/>
             <Button type="submit">Sign In</Button>
             <h3>
