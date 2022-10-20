@@ -9,15 +9,13 @@ import { Feedback } from "./Feedback/Feedback";
 export default {
     title: "Controls/Input",
     component: Input,
-    args: {
-        placeholder: "your name",
-        label: "name",
-    }
+    args: { }
 } as ComponentMeta<typeof Input>
 
 export const PrimaryInput: ComponentStoryObj<typeof Input> = {
     play: async ({ args }) => {},
     args: {
+        label: "name",
         // children: "mnplus"
         feedback: 'Looks',
     }
@@ -25,6 +23,8 @@ export const PrimaryInput: ComponentStoryObj<typeof Input> = {
 
 export const WithValidFeedback: ComponentStoryObj<typeof Input> = {
     args: {
+        placeholder: "text here",
+        label: "text",
         feedback: <Feedback isValid={true}>Looks good</Feedback>
     },
     argTypes: {
@@ -36,6 +36,8 @@ export const WithValidFeedback: ComponentStoryObj<typeof Input> = {
 
 export const WithInvalidFeedback: ComponentStoryObj<typeof Input> = {
     args: {
+        placeholder: "text here",
+        label: "text",
         feedback: <Feedback isValid={false}>Required</Feedback>
     },
     argTypes: {
@@ -47,6 +49,8 @@ export const WithInvalidFeedback: ComponentStoryObj<typeof Input> = {
 
 export const WithIcon: ComponentStoryObj<typeof Input> = {
     args: {
-        icon: "User"
+        icon: "User",
+        placeholder: "user",
+        height: 4,
     },
 }

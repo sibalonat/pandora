@@ -14,8 +14,8 @@ const Section = styled.section`
     ${({ theme }) => boxShadow(theme.components.shadow1, theme.components.shadow2, false)};
 `
 
-export const Tile: FC<Props> = ({ header, children }) => (
-    <Section>
+export const Tile: FC<Props> = ({ header, children, ...rest }) => (
+    <Section {...rest}>
         <h2>{header}</h2>
         {children}
     </Section>
