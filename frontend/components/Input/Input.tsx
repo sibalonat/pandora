@@ -86,7 +86,7 @@ const Label = styled.span`
     padding-left: 1.4rem;    
 `
 // padding-left: 1.4rem;    
-const Feedback = styled.span`
+export const Feedback = styled.span`
     grid-area: feedback;
 `
 // const Text = styled.span`
