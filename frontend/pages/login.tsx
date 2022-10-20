@@ -26,7 +26,7 @@ const StyledInput = styled(Input)`
     margin-bottom: 1rem;
 `
 
-export const Login: NextPage = () => {
+const Login: NextPage = () => {
     const {
         register, 
         handleSubmit, formState: {errors},
@@ -35,7 +35,8 @@ export const Login: NextPage = () => {
         console.log(data);
     }
 
-    return <form onSubmit={ handleSubmit(onSubmit)}>
+    return ( 
+    <form onSubmit={ handleSubmit(onSubmit)}>
         <CenteredTile header="Login">
             <StyledInput 
             label="Identifier" 
@@ -65,4 +66,7 @@ export const Login: NextPage = () => {
             </h3>
         </CenteredTile>
     </form>
+    );
 }
+
+export default Login
