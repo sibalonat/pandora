@@ -50,8 +50,13 @@ export const Layout: FC = ({ children }) => {
     setIsDark(!isDark);
   };
   useIsomorphicLayoutEffect(() => {
-    const isDark = Boolean(localStorage.getItem("theme") === "dark") || window.matchMedia("prefers-color-scheme: dark").matches;
-    setIsDark(isDark);
+    const theme = localStorage.getItem('theme')
+    const themeExistsInStorage = Boolean(theme !== null)
+    // const isDark = Boolean(localStorage.getItem("theme") === "dark") || window.matchMedia("prefers-color-scheme: dark").matches;
+    // setIsDark(isDark);
+    setIsDark(
+        themeExistsInStorage ? Boolean(theme === 'dark') : window.matchMedia("(prefers-color-scheme: dark)").matches
+    );
   }, []);
   const theme = Themes[isDark ? "dark" : "light"];
   return (
@@ -76,7 +81,7 @@ export const Layout: FC = ({ children }) => {
             <IconButton name="Login" size={1} />
           </Link>
           <IconButton
-            name={isDark ? "Moon" : "Sun"}
+            name={!isDark ? "Moon" : "Sun"}
             size={1}
             onClick={toggleDark}
           />
