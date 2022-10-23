@@ -14,7 +14,6 @@ export default {
 export const BasicLayout: ComponentStoryObj<typeof Layout> = {
     play: async ({ args }) => {},
     args: {
-        // children: "mnplus"
         children: (
             <>
               <h1>Main article area</h1>
