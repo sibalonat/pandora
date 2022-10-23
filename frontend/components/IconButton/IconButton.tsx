@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { FC, MouseEvent } from "react";
+import { FC, ForwardedRef, forwardRef, MouseEvent } from "react";
 
 import { Icon, Props as IconProps } from "@/components/Icon/Icon";
 import { boxShadow, transition } from "@/components/styles";
@@ -31,13 +31,17 @@ const Button = styled.button<ButtonProps>`
 
 export type Props = {
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-} & IconProps;
+} & Omit<IconProps, "ref">;
 
-export const IconButton: FC<Props> = ({ onClick, ...props }) => (
+export const IconButton: FC<Props> = forwardRef (({ onClick, ...props }, ref) => (
     <Button
         onClick={onClick}
         size={`${(props.size || 2) * 2}rem`}
-        title={props.name}>
+        title={props.name}
+        ref={ref as ForwardedRef<HTMLButtonElement>}
+        >
         <Icon {...props}></Icon>
     </Button>
-);
+))
+
+IconButton.displayName = "IconButton"
