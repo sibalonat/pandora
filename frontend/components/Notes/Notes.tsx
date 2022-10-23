@@ -44,7 +44,7 @@ export const Note: FC<Props> = ({ children, header, imageProps, link }) => (
         <Link href={link} passHref>
             <NoteLink>
                 <h2>{header}</h2>
-                <Image {...imageProps} />
+                <Image {...imageProps} alt={header} />
                 {children}
             </NoteLink>
         </Link>
