@@ -7,8 +7,8 @@ export const rootReducer = {
     user: userSlice.reducer
 }
 
-export const storeCreator = () => configureStore({
-    reducer: rootReducer
+export const storeCreator = (reducer = rootReducer) => configureStore({
+    reducer
 })
 
 export const store = storeCreator()

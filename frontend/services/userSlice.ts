@@ -1,3 +1,4 @@
+// import { login } from './us|erSlice';
 import { 
     createSlice, 
     PayloadAction, 
@@ -17,6 +18,12 @@ export type UserState = {
 
 export type LoginData = {
     identifier?: string;
+    password?: string;
+}
+
+export type RegistrationData = {
+    username?: string;
+    email?: string;
     password?: string;
 }
 
@@ -40,20 +47,45 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(login.fulfilled, (state, {payload}) => {
-            state.requestSTate = 'fulfilled'
-            state.jwt = payload.jwt;
-            state.username = payload.user.usename;
-            state.email = payload.user.email;
-            state.error = undefined;
-        }).addCase(login.pending, (state) => {
-            state.requestSTate = 'pending';
-            state.error = undefined;
-        }).addCase(login.rejected, (state, {payload}) => {
-            state.requestSTate = 'rejected';
-            const payloadError = (payload as {error: SerializedError})?.error
-            state.error = payloadError;
-        })
+        .addMatcher<PayloadAction<UserPayload>>(
+            (action) => /\/(login|registration)\/fulfilled$/.test(action.type),
+            (state, {payload}) => {
+                state.requestSTate = 'fulfilled';
+                state.jwt = payload.jwt;
+                state.username = payload.user.usename;
+                state.email = payload.user.email;
+                state.error = undefined;
+            }
+        )
+        .addMatcher(
+            (action) => action.type.endsWith('/pending'),
+            (state) => {
+                state.requestSTate = 'pending';
+            }
+        )
+        .addMatcher(
+            (action) => action.type.endsWith('/rejected'),
+            (state, {payload}) => {
+                const payloadError = (payload as {error: SerializedError})?.error
+                state.error = payloadError
+                state.requestSTate = 'rejected'
+            }
+        )
+        // .addCase(login.fulfilled, (state, {payload}) => {
+        //     state.requestSTate = 'fulfilled'
+        //     state.jwt = payload.jwt;
+        //     state.username = payload.user.usename;
+        //     state.email = payload.user.email;
+        //     state.error = undefined;
+        // }).addCase(login.pending, (state) => {
+        //     state.requestSTate = 'pending';
+        //     state.error = undefined;
+        // }).addCase(login.rejected, (state, {payload}) => {
+        //     state.requestSTate = 'rejected';
+        //     const payloadError = (payload as {error: SerializedError})?.error
+        //     state.error = payloadError;
+        // })
+        builder.addCase(logout.fulfilled, () => initialState)
     }
 })
 
@@ -113,3 +145,5 @@ export const login = createAsyncThunk<UserPayload, LoginData>(
 
     }
 )
+
+export const logout = createAsyncThunk('user/logout', async () => clearUserInfoFromLocalStorage())
