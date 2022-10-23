@@ -7,7 +7,7 @@ import {
     SerializedError
 } from "@reduxjs/toolkit";
 
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 
 type RequestState = 'pending' | 'fulfilled' | 'rejected'
 
@@ -30,7 +30,7 @@ export type RegistrationData = {
     password?: string;
 }
 
-type UserPayload = { jwt: string; user: { usename: string; email: string; } }
+type UserPayload = { jwt: string; user: { username: string; email: string; } }
 
 const initialState: UserState = {
     jwt: '',
@@ -49,13 +49,14 @@ export const userSlice = createSlice({
         clear: () => initialState
     },
     extraReducers: (builder) => {
+        builder.addCase(logout.fulfilled, () => initialState)
         builder
             .addMatcher<PayloadAction<UserPayload>>(
                 (action) => /\/(login|registration)\/fulfilled$/.test(action.type),
                 (state, { payload }) => {
                     state.requestSTate = 'fulfilled';
                     state.jwt = payload.jwt;
-                    state.username = payload.user.usename;
+                    state.username = payload.user.username;
                     state.email = payload.user.email;
                     state.error = undefined;
                 }
@@ -74,21 +75,6 @@ export const userSlice = createSlice({
                     state.requestSTate = 'rejected'
                 }
             )
-        // .addCase(login.fulfilled, (state, {payload}) => {
-        //     state.requestSTate = 'fulfilled'
-        //     state.jwt = payload.jwt;
-        //     state.username = payload.user.usename;
-        //     state.email = payload.user.email;
-        //     state.error = undefined;
-        // }).addCase(login.pending, (state) => {
-        //     state.requestSTate = 'pending';
-        //     state.error = undefined;
-        // }).addCase(login.rejected, (state, {payload}) => {
-        //     state.requestSTate = 'rejected';
-        //     const payloadError = (payload as {error: SerializedError})?.error
-        //     state.error = payloadError;
-        // })
-        builder.addCase(logout.fulfilled, () => initialState)
     }
 })
 
@@ -108,7 +94,7 @@ const clearUserInfoFromLocalStorage = () => {
 
 const setupUSerInfoFromLocalStorage = (result: UserPayload) => {
     localStorage.setItem('jwt', result.jwt)
-    localStorage.setItem('username', result?.user?.usename)
+    localStorage.setItem('username', result?.user?.username)
     localStorage.setItem('email', result?.user?.email)
 }
 
@@ -117,7 +103,7 @@ export const login = createAsyncThunk<UserPayload, LoginData>(
     async (loginData, { rejectWithValue }) => {
         try {
             const jwt = localStorage.getItem('jwt')
-            const response = jwt
+            const response = jwt && !loginData?.identifier && !loginData?.password
                 ? await fetch(`${api_url}/users/me`, {
                     method: 'GET',
                     headers: {

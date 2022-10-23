@@ -10,6 +10,7 @@ import { RootState, AppDispatch } from "@/store";
 import styled from "@emotion/styled";
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,7 +30,15 @@ const Login: NextPage = () => {
     formState: { errors },
   } = useForm<LoginForm>();
 
+  const router = useRouter()
+
+  const {jwt, error } = useSelector<RootState, RootState['user']>(selectUser)
+
   const dispatch = useDispatch<AppDispatch>();
+
+  if (Boolean(jwt) && !error) {
+      router.push('/user')
+  }
 
   const onSubmit = (data: LoginForm) => {
     dispatch(login(data));
@@ -38,6 +47,9 @@ const Login: NextPage = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <CenteredTile header="Login">
+        <h3>
+          <ConditionalFeedback>{error?.message}</ConditionalFeedback>
+        </h3>
         <StyledInput
           label="Identifier"
           placeholder="username or email"
