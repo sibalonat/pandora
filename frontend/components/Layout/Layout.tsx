@@ -16,17 +16,7 @@ import {
 import { ThemeProvider } from "@emotion/react";
 import { Themes } from "@/styles/themes";
 
-// styled
-// Link
-// IconButton
-// "header"
-// "nav"
-// "search"
-// "content"
-// "sidebar"
-// "footer";
-// Wrapper
-// Logo
+
 
 // useLayoutEffect
 
