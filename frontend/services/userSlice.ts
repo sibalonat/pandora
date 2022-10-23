@@ -1,3 +1,4 @@
+// import { registration } from '@/services/userSlice';
 import { RootState } from '@/store';
 // import { login } from './us|erSlice';
 import {
@@ -20,8 +21,8 @@ export type UserState = {
 }
 
 export type LoginData = {
-    identifier?: string;
-    password?: string;
+    identifier: string;
+    password: string;
 }
 
 export type RegistrationData = {
@@ -78,7 +79,6 @@ export const userSlice = createSlice({
     }
 })
 
-// userSelector
 
 export const { actions, reducer } = userSlice
 
@@ -98,26 +98,40 @@ const setupUSerInfoFromLocalStorage = (result: UserPayload) => {
     localStorage.setItem('email', result?.user?.email)
 }
 
-export const login = createAsyncThunk<UserPayload, LoginData>(
+const createRequest = (
+    jwt: string | null,
+    loginData: LoginData | undefined
+) => {
+    if (jwt && !loginData) {
+        return fetch(`${api_url}/users/me`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            },
+            // body: JSON.stringify(loginData)
+        });
+    }
+
+    if (loginData) {
+        return fetch(`${api_url}/auth/local`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginData)
+        });
+    }
+
+    throw { error: "Ivalid request" };
+
+}
+
+export const login = createAsyncThunk<UserPayload, LoginData | undefined>(
     "user/login",
     async (loginData, { rejectWithValue }) => {
         try {
             const jwt = localStorage.getItem('jwt')
-            const response = jwt && !loginData?.identifier && !loginData?.password
-                ? await fetch(`${api_url}/users/me`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${jwt}`
-                    },
-                    body: JSON.stringify(loginData)
-                })
-                : await fetch(`${api_url}/auth/local`, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(loginData)
-                })
+            const response = await createRequest(jwt, loginData)
 
             const data = await response.json()
             if (response.status < 200 || response.status >= 300) {
@@ -140,3 +154,25 @@ export const login = createAsyncThunk<UserPayload, LoginData>(
 )
 
 export const logout = createAsyncThunk('user/logout', async () => clearUserInfoFromLocalStorage())
+export const registration = createAsyncThunk<UserPayload, RegistrationData>(
+    "user/registration",
+    async(data, {rejectWithValue}) => {
+        try {
+            const response = await fetch(`${api_url}/auth/local/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(data),
+            })
+            const result = await response.json()
+            if (response.status < 200 || response.status >= 300 ) {
+                return rejectWithValue(result)                
+            }
+            setupUSerInfoFromLocalStorage(result)
+            return result
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)

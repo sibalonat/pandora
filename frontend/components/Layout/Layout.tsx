@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-
 import { FC, useEffect, useLayoutEffect, useState } from "react";
 import Link from "next/link";
+import { AppDispatch, RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 import { IconButton } from "@/components/IconButton/IconButton";
 import { StyledLink } from "@/components/StyledLink/StyledLink";
 import {
@@ -15,22 +15,23 @@ import {
 } from "./components";
 import { ThemeProvider } from "@emotion/react";
 import { Themes } from "@/styles/themes";
-
-type Props = {
-  isDark: boolean;
-  onThemeToggler: () => void;
-};
+import { login, selectUser } from "@/services/userSlice";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export const Layout: FC = ({ children }) => {
+  const { username } = useSelector<RootState, RootState['user']>(selectUser)
   const [isDark, setIsDark] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>()
+
   const toggleDark = () => {
     localStorage.setItem("theme", isDark ? "light" : "dark");
     setIsDark(!isDark);
   };
   useIsomorphicLayoutEffect(() => {
+    dispatch(login({}))
     const theme = localStorage.getItem("theme");
     const themeExistsInStorage = Boolean(theme !== null);
 
@@ -56,8 +57,8 @@ export const Layout: FC = ({ children }) => {
           <Link href="/all" passHref>
             <StyledLink>All</StyledLink>
           </Link>
-          <Link href="/login" passHref>
-            <IconButton name="Login" size={1} />
+          <Link href={username ? '/user' : '/login'} passHref>
+            <IconButton name={username ? 'User' : 'Login'} size={1} />
           </Link>
           <IconButton
             name={!isDark ? "Moon" : "Sun"}
