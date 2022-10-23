@@ -1,9 +1,12 @@
 import { Button } from "@/components/Button/Button";
-import { Feedback, Input } from "@/components/Input/Input";
+import { ConditionalFeedback } from "@/components/Input/Index";
+// import { Feedback, Input } from "@/components/Input/Input";
+import { Input } from "@/components/Input/Input";
 import { StyledLink } from "@/components/StyledLink/StyledLink";
 import { CenteredTile } from "@/components/Tile/CenteredTile";
 import styled from "@emotion/styled";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 // NextPage
 // useForm
@@ -32,12 +35,19 @@ const Registration: NextPage = () => {
     const onSubmit = (data: RegistrationForm) => {
         console.log(data);
     }
+    // errors.username ? (<Feedback>{errors.username?.message}</Feedback>) : (<>&nbsp;</>)}
+    // feedback={errors.password ? (<Feedback>{errors.password?.message}</Feedback>) : (<>&nbsp;</>)}
+    // pattern: {
+    //     value: /^[\w\d\s]+$/,
+    //     message: "Only letters, numbers and spaces"
+    // }
     return <form onSubmit={handleSubmit(onSubmit)}>
         <CenteredTile header='Create Account'>
             <StyledInput 
             label="username" 
             placeholder="User Name" 
-            feedback={errors.username ? (<Feedback>{errors.username?.message}</Feedback>) : (<>&nbsp;</>)}
+            height={8}
+            feedback={<ConditionalFeedback>{errors.username?.message}</ConditionalFeedback>}
             {...register('username', {
                 required: "Required field",
                 minLength: {value: 6, message: "Min Length!"},
@@ -47,17 +57,34 @@ const Registration: NextPage = () => {
                 }
             })} />
             <StyledInput 
-            label="username" 
-            placeholder="User Name" 
-            feedback={errors.password ? (<Feedback>{errors.password?.message}</Feedback>) : (<>&nbsp;</>)}
-            {...register('password', {
+            label="Email" 
+            height={8}
+            placeholder="User email" 
+            feedback={<ConditionalFeedback>{errors.email?.message}</ConditionalFeedback>}
+            {...register('email', {
                 required: "Required field",
-                minLength: {value: 6, message: "Min Length!"},
                 pattern: {
-                    value: /^[\w\d\s]+$/,
-                    message: "Only letters, numbers and spaces"
+                    value: /^\S+@\S+$/,
+                    message: "Invalid email"
                 }
             })} />
+            <StyledInput 
+            label="Password" 
+            height={8}
+            placeholder="Enter a password" 
+            feedback={<ConditionalFeedback>{errors.password?.message}</ConditionalFeedback>}
+            {...register('password', {
+                required: "Required field",
+                minLength: {value: 8, message: "Min Length 8!"},
+            })} />
+
+            <Button type="submit">Signup</Button>
+            <h3>
+                <Link href='/login' passHref> 
+                <StyledLink underline>Login</StyledLink>
+                </Link>
+            </h3> 
+
         </CenteredTile>
     </form>
 }

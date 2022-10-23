@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button/Button";
+import { ConditionalFeedback } from "@/components/Input/Index";
 // import { Feedback } from "@/components/Input/Feedback/Feedback";
 // import { Input, Feedback } from "@/components/Input/Input";
 import { Input, Feedback } from "@/components/Input/Input";
@@ -34,7 +35,8 @@ const Login: NextPage = () => {
     const onSubmit = (data: LoginForm) => { 
         console.log(data);
     }
-
+    // feedback={errors.password ? <Feedback>{errors.password?.message}</Feedback> : <>&nbsp;</>}
+    // feedback={errors.identifier ? <Feedback>{errors.identifier?.message}</Feedback> : <>&nbsp;</>}
     return ( 
     <form onSubmit={ handleSubmit(onSubmit)}>
         <CenteredTile header="Login">
@@ -42,7 +44,7 @@ const Login: NextPage = () => {
             label="Identifier" 
             placeholder="username or email"
             height={7}
-            feedback={errors.identifier ? <Feedback>{errors.identifier?.message}</Feedback> : <>&nbsp;</>}
+            feedback={<ConditionalFeedback>{errors.identifier?.message}</ConditionalFeedback>}
             {...register("identifier", {
                 required: "Required Field",
                 minLength: {value: 6, message: "To Short"}
@@ -52,7 +54,7 @@ const Login: NextPage = () => {
             label="Password" 
             type="password"
             role="textbox"
-            feedback={errors.password ? <Feedback>{errors.password?.message}</Feedback> : <>&nbsp;</>}
+            feedback={<ConditionalFeedback>{errors.password?.message}</ConditionalFeedback>}
             placeholder="password"
             {...register("password", {
                 required: "Required Field",
