@@ -39,6 +39,8 @@ type Props = {
   onThemeToggler: () => void;
 };
 
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
 // export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
 export const Layout: FC = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
@@ -47,11 +49,9 @@ export const Layout: FC = ({ children }) => {
     localStorage.setItem("theme", isDark ? "light" : "dark");
     setIsDark(!isDark);
   };
-  useEffect(() => {
-    const isDark = Boolean(localStorage.getItem("theme") === "dark");
-    setIsDark(
-      window.matchMedia("prefers-color-scheme: dark").matches || isDark
-    );
+  useIsomorphicLayoutEffect(() => {
+    const isDark = Boolean(localStorage.getItem("theme") === "dark") || window.matchMedia("prefers-color-scheme: dark").matches;
+    setIsDark(isDark);
   }, []);
   const theme = Themes[isDark ? "dark" : "light"];
   return (
@@ -78,7 +78,7 @@ export const Layout: FC = ({ children }) => {
           <IconButton
             name={isDark ? "Moon" : "Sun"}
             size={1}
-            onClick={onThemeToggler}
+            onClick={toggleDark}
           />
         </MainNav>
         <SearchInput icon="Search" placeholder="search" onChange={() => null} />
