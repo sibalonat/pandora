@@ -1,19 +1,20 @@
 import styled from "@emotion/styled";
 
-import { FC } from "react";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import { IconButton } from "@/components/IconButton/IconButton";
 import { StyledLink } from "@/components/StyledLink/StyledLink";
-import { 
-    Wrapper,
-    StyledLogo,
-    LogoLink,
-    MainNav,
-    SearchInput,
-    Content,
-    Footer,
-
+import {
+  Wrapper,
+  StyledLogo,
+  LogoLink,
+  MainNav,
+  SearchInput,
+  Content,
+  Footer,
 } from "./components";
+import { ThemeProvider } from "@emotion/react";
+import { Themes } from "@/styles/themes";
 
 // styled
 // Link
@@ -27,48 +28,63 @@ import {
 // Wrapper
 // Logo
 
-
-
-
+// useLayoutEffect
 
 // @media(max-width: 500px) {
 //     justify-content: center;
 // }
 
-
 type Props = {
-    isDark: boolean;
-    onThemeToggler: () => void;
-}
+  isDark: boolean;
+  onThemeToggler: () => void;
+};
 
-export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
-    <Wrapper>
+// export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
+export const Layout: FC = ({ children }) => {
+  const [isDark, setIsDark] = useState(false);
+  // const toggleDark = () => setIsDark(!isDark)
+  const toggleDark = () => {
+    localStorage.setItem("theme", isDark ? "light" : "dark");
+    setIsDark(!isDark);
+  };
+  useEffect(() => {
+    const isDark = Boolean(localStorage.getItem("theme") === "dark");
+    setIsDark(
+      window.matchMedia("prefers-color-scheme: dark").matches || isDark
+    );
+  }, []);
+  const theme = Themes[isDark ? "dark" : "light"];
+  return (
+    <ThemeProvider theme={theme}>
+      <Wrapper>
         <Link href="/" passHref>
-            <LogoLink>
-                <StyledLogo size={3}>
-                    <span className="logo_short">mn+</span>
-                    <span className="logo_full">mnplus</span>
-                </StyledLogo>
-            </LogoLink>
+          <LogoLink>
+            <StyledLogo size={3}>
+              <span className="logo_short">mn+</span>
+              <span className="logo_full">mnplus</span>
+            </StyledLogo>
+          </LogoLink>
         </Link>
         <MainNav>
-            <Link href="/all" passHref>
-                <StyledLink>
-                    All
-                </StyledLink>
-            </Link>
-            <Link href="/login" passHref>
-                {/* <StyledLink>
+          <Link href="/all" passHref>
+            <StyledLink>All</StyledLink>
+          </Link>
+          <Link href="/login" passHref>
+            {/* <StyledLink>
                     News
                 </StyledLink> */}
-                <IconButton name="Login" size={1} />
-            </Link>
-            <IconButton name={isDark ? "Moon" : "Sun"} size={1} onClick={onThemeToggler} />
+            <IconButton name="Login" size={1} />
+          </Link>
+          <IconButton
+            name={isDark ? "Moon" : "Sun"}
+            size={1}
+            onClick={onThemeToggler}
+          />
         </MainNav>
         <SearchInput icon="Search" placeholder="search" onChange={() => null} />
         <Content> {children} </Content>
-        <Footer>
-            {new Date().getFullYear()} all right for all
-        </Footer>
-    </Wrapper>
-);
+        <Footer>{new Date().getFullYear()} all right for all</Footer>
+      </Wrapper>
+    </ThemeProvider>
+  );
+};

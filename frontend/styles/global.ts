@@ -7,6 +7,8 @@ export const GlobalStyles = css`
         margin: 0;
         overflow-x: hidden;
         font-family: 'Poppins', sans-serif;
+        background-color: var(--themeBackgroundColor);
+        color: var(--themeColor);
     }
     .monotone {
         font-family: Monoton, cursive;
