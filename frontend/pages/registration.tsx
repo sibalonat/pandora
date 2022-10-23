@@ -43,12 +43,10 @@ const Registration: NextPage = () => {
   const { jwt, error } = useSelector<RootState, RootState["user"]>(selectUser);
 
   if (Boolean(jwt) && !error) {
-    // Router
     router.push("/user");
   }
 
   const onSubmit = (data: RegistrationData) => {
-    // console.log(data);
     dispatch(registration(data));
   };
 
