@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button/Button";
 import { ConditionalFeedback } from "@/components/Input/Index";
-// import { Feedback, Input } from "@/components/Input/Input";
+
 import { Input } from "@/components/Input/Input";
 import { StyledLink } from "@/components/StyledLink/StyledLink";
 import { CenteredTile } from "@/components/Tile/CenteredTile";
@@ -8,14 +8,7 @@ import styled from "@emotion/styled";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-// NextPage
-// useForm
-// CenteredTile
-// styled
-// Input
-// StyledLink
-// Button
-// Feedback
+
 
 const StyledInput = styled(Input)`
     margin-bottom: 1rem;
@@ -35,12 +28,7 @@ const Registration: NextPage = () => {
     const onSubmit = (data: RegistrationForm) => {
         console.log(data);
     }
-    // errors.username ? (<Feedback>{errors.username?.message}</Feedback>) : (<>&nbsp;</>)}
-    // feedback={errors.password ? (<Feedback>{errors.password?.message}</Feedback>) : (<>&nbsp;</>)}
-    // pattern: {
-    //     value: /^[\w\d\s]+$/,
-    //     message: "Only letters, numbers and spaces"
-    // }
+
     return <form onSubmit={handleSubmit(onSubmit)}>
         <CenteredTile header='Create Account'>
             <StyledInput 

@@ -3,10 +3,7 @@ import { StyledLink } from "@/components/StyledLink/StyledLink"
 import styled from "@emotion/styled"
 import Link from "next/link"
 
-// Logo
-// Link
-// StyledLink
-// styled
+
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;

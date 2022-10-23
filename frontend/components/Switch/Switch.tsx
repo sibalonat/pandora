@@ -17,7 +17,7 @@ const Wrapper = styled.label`
         }
     }
 `
-// ${transition()};
+
 const VisiblePart = styled.label`
     display: flex;
     flex-direction: row;

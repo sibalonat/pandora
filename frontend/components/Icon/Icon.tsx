@@ -7,46 +7,19 @@ import { Icons } from "./Icons";
 
 export type AvailableIcons = keyof typeof Icons;
 
-
-// type WrapperProps = {
-//     size?: number
-// }
-// size: string;
-
-// export type Props = {
-//     name: AvailableIcons;
-//     size?: number;
-// } & WrapperProps & React.SVGProps<SVGSVGElement>;
 export type Props = {
-    name: AvailableIcons;
-    size?: number;
+  name: AvailableIcons;
+  size?: number;
 } & React.SVGProps<SVGSVGElement>;
-{/* <SVGAElement></SVGAElement> */}
 
-// const Wrapper = styled.div<WrapperProps>`
-//     color: ${({theme}) => theme.fonts.regular };
-//     ${({size}) => {
-//         const sizeRem = `${size}rem`;
-//         return css`
-//             width: ${sizeRem};
-//             height: ${sizeRem};
-//         `
-//     }}
-// `
+export const Icon: FC<Props> = ({ name, size = 2, ...rest }) => {
+  const Icon = styled(Icons[name])`
+    color: ${({ theme }) => theme.fonts.regular};
+  `;
+  const sizeRem = `${size}rem`;
+  const sizes = { width: sizeRem, height: sizeRem };
+  console.log(name);
+  console.log(rest);
 
-export const Icon: FC<Props> = ({name, size = 2, ...rest}) => {
-    // const Icon = Icons[name];
-    const Icon = styled(Icons[name])`
-        color: ${({theme}) => theme.fonts.regular};
-    `
-    const sizeRem = `${size}rem`
-    const sizes = {width: sizeRem, height: sizeRem};
-    console.log(name);
-    console.log(rest);
-
-    return (
-        // <Wrapper size={size}>
-            <Icon role="img" aria-label={name} {...sizes}{...rest}/>
-        // </Wrapper>
-    );
-}
+  return <Icon role="img" aria-label={name} {...sizes} {...rest} />;
+};

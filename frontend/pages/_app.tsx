@@ -1,35 +1,16 @@
-
-import type { AppProps } from 'next/app'
-import { Layout } from '@/components/Layout/Layout'
-// import { ThemeProvider } from '@emotion/react'
-// import { Themes } from '@/styles/themes'
-// import { useEffect, useState } from 'react'
-// ThemeProvider
-
-// useState
-// useEffect
-
+import type { AppProps } from "next/app";
+import { Layout } from "@/components/Layout/Layout";
+import { Provider } from "react-redux";
+import { store } from "@/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // const [isDark, setIsDark] = useState(false)
-  // // const toggleDark = () => setIsDark(!isDark)
-  // const toggleDark = () => {
-  //   localStorage.setItem('theme', isDark ? 'light' : 'dark')
-  //   setIsDark(!isDark)
-  // }
-  // useEffect(() => {
-  //   const isDark = Boolean(localStorage.getItem('theme') === 'dark')
-  //   setIsDark(window.matchMedia("prefers-color-scheme: dark").matches || isDark)
-  // }, [])
-  // const theme = Themes[isDark ? 'dark' : 'light']
   return (
-    // <ThemeProvider theme={theme}>
-      // <Layout isDark={isDark} onThemeToggler={toggleDark}>
+    <Provider store={store}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    // </ThemeProvider>
-  )
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;

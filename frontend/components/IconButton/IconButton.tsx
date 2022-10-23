@@ -4,7 +4,6 @@ import { FC, ForwardedRef, forwardRef, MouseEvent } from "react";
 
 import { Icon, Props as IconProps } from "@/components/Icon/Icon";
 import { boxShadow, transition } from "@/components/styles";
-// Icon
 
 type ButtonProps = { size?: string };
 
@@ -32,8 +31,7 @@ const Button = styled.button<ButtonProps>`
 export type Props = {
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 } & Omit<IconProps, "ref">;
-// ===
-// ===
+
 
 export const IconButton: FC<Props> = forwardRef (({ onClick, ...props }, ref) => (
     <Button

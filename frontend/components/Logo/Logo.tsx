@@ -1,13 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-// import css from "styled-jsx/css";
-// import { monotone } from "../styles";
 
-// styled
+
 export type Props = {size?: number};
 
-// ${monotone};
-// font-family: ${({theme}) => theme.fonts.different};
 export const Logo = styled.header<Props>`
 font-family: 'Monoton', cursive;
     font-weight: normal;

@@ -1,10 +1,13 @@
+import { RootState } from '@/store';
 // import { login } from './us|erSlice';
-import { 
-    createSlice, 
-    PayloadAction, 
+import {
+    createSlice,
+    PayloadAction,
     createAsyncThunk,
-    SerializedError 
+    SerializedError
 } from "@reduxjs/toolkit";
+
+import { useSelector, useDispatch } from "react-redux";
 
 type RequestState = 'pending' | 'fulfilled' | 'rejected'
 
@@ -47,30 +50,30 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addMatcher<PayloadAction<UserPayload>>(
-            (action) => /\/(login|registration)\/fulfilled$/.test(action.type),
-            (state, {payload}) => {
-                state.requestSTate = 'fulfilled';
-                state.jwt = payload.jwt;
-                state.username = payload.user.usename;
-                state.email = payload.user.email;
-                state.error = undefined;
-            }
-        )
-        .addMatcher(
-            (action) => action.type.endsWith('/pending'),
-            (state) => {
-                state.requestSTate = 'pending';
-            }
-        )
-        .addMatcher(
-            (action) => action.type.endsWith('/rejected'),
-            (state, {payload}) => {
-                const payloadError = (payload as {error: SerializedError})?.error
-                state.error = payloadError
-                state.requestSTate = 'rejected'
-            }
-        )
+            .addMatcher<PayloadAction<UserPayload>>(
+                (action) => /\/(login|registration)\/fulfilled$/.test(action.type),
+                (state, { payload }) => {
+                    state.requestSTate = 'fulfilled';
+                    state.jwt = payload.jwt;
+                    state.username = payload.user.usename;
+                    state.email = payload.user.email;
+                    state.error = undefined;
+                }
+            )
+            .addMatcher(
+                (action) => action.type.endsWith('/pending'),
+                (state) => {
+                    state.requestSTate = 'pending';
+                }
+            )
+            .addMatcher(
+                (action) => action.type.endsWith('/rejected'),
+                (state, { payload }) => {
+                    const payloadError = (payload as { error: SerializedError })?.error
+                    state.error = payloadError
+                    state.requestSTate = 'rejected'
+                }
+            )
         // .addCase(login.fulfilled, (state, {payload}) => {
         //     state.requestSTate = 'fulfilled'
         //     state.jwt = payload.jwt;
@@ -89,7 +92,11 @@ export const userSlice = createSlice({
     }
 })
 
+// userSelector
+
 export const { actions, reducer } = userSlice
+
+export const selectUser = ({ user }: RootState) => user
 
 const api_url = process.env.NEXT_PUBLIC_STRAPI_API_URL
 

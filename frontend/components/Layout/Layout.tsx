@@ -16,36 +16,28 @@ import {
 import { ThemeProvider } from "@emotion/react";
 import { Themes } from "@/styles/themes";
 
-
-
-// useLayoutEffect
-
-// @media(max-width: 500px) {
-//     justify-content: center;
-// }
-
 type Props = {
   isDark: boolean;
   onThemeToggler: () => void;
 };
 
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-// export const Layout: FC<Props> = ({ children, isDark, onThemeToggler }) => (
 export const Layout: FC = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
-  // const toggleDark = () => setIsDark(!isDark)
   const toggleDark = () => {
     localStorage.setItem("theme", isDark ? "light" : "dark");
     setIsDark(!isDark);
   };
   useIsomorphicLayoutEffect(() => {
-    const theme = localStorage.getItem('theme')
-    const themeExistsInStorage = Boolean(theme !== null)
-    // const isDark = Boolean(localStorage.getItem("theme") === "dark") || window.matchMedia("prefers-color-scheme: dark").matches;
-    // setIsDark(isDark);
+    const theme = localStorage.getItem("theme");
+    const themeExistsInStorage = Boolean(theme !== null);
+
     setIsDark(
-        themeExistsInStorage ? Boolean(theme === 'dark') : window.matchMedia("(prefers-color-scheme: dark)").matches
+      themeExistsInStorage
+        ? Boolean(theme === "dark")
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
     );
   }, []);
   const theme = Themes[isDark ? "dark" : "light"];
@@ -65,9 +57,6 @@ export const Layout: FC = ({ children }) => {
             <StyledLink>All</StyledLink>
           </Link>
           <Link href="/login" passHref>
-            {/* <StyledLink>
-                    News
-                </StyledLink> */}
             <IconButton name="Login" size={1} />
           </Link>
           <IconButton
