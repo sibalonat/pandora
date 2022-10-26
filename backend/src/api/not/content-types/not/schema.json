@@ -4,7 +4,8 @@
   "info": {
     "singularName": "not",
     "pluralName": "nots",
-    "displayName": "Not"
+    "displayName": "Not",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,20 +13,30 @@
   "pluginOptions": {},
   "attributes": {
     "header": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "description": {
       "type": "richtext"
     },
     "cover": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "link": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }
